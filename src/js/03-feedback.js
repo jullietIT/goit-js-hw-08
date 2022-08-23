@@ -7,6 +7,7 @@ import throttle from 'lodash.throttle';
 
 
 const form = document.querySelector('.feedback-form');
+const LOCALSTORAGE_KEY = 'feedback-form-state';
 form.addEventListener('input', throttle(onFormData, 500));
 form.addEventListener('submit', onSubmitForm);
 
@@ -16,29 +17,29 @@ const formData = {};
 
 function onFormData(e) {
   formData[e.target.name] = e.target.value;
-  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+  localStorage.setItem('LOCALSTORAGE_KEY', JSON.stringify(formData));
 }
 
 
 //3. При сабмите формы очищай хранилище и поля формы, а также выводи объект с полями email, message и текущими их значениями в консоль.
 function onSubmitForm(e) {
-  console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
+  console.log(JSON.parse(localStorage.getItem('LOCALSTORAGE_KEY')));
   e.preventDefault();
   e.currentTarget.reset();
-  localStorage.removeItem('feedback-form-state');
+  localStorage.removeItem('LOCALSTORAGE_KEY');
 }
 
 // 1.Отслеживай на форме событие input, и каждый раз записывай в локальное хранилище объект с полями email и message, в которых сохраняй текущие значения полей формы. Пусть ключом для хранилища будет строка "feedback-form-state".
 
 (function dataFromLocalStorage() {
-  const data = JSON.parse(localStorage.getItem('feedback-form-state'));
+  const dataStorage = JSON.parse(localStorage.getItem('LOCALSTORAGE_KEY'));
 
   const email = document.querySelector('.feedback-form input');
   const message = document.querySelector('.feedback-form textarea');
 
-  if (data) {
-    email.value = data.email;
-    message.value = data.message;
+  if (dataStorage) {
+    email.value = dataStorage.email;
+    message.value = dataStorage.message;
   }
 })();
 
