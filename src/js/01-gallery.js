@@ -1,16 +1,12 @@
+
 // Add imports above this line
 import { galleryItems } from './gallery-items';
 // Change code below this line
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 console.log(galleryItems);
 
-// Change code below this line
-
-// Дополнительный импорт стилей
-import "simplelightbox/dist/simple-lightbox.min.css";
-
-
-console.log(galleryItems);
 
 const gallery = document.querySelector('.gallery');
 const galleryList = createGalleryCardsItem(galleryItems);
@@ -21,7 +17,7 @@ gallery.insertAdjacentHTML("beforeend", galleryList);
   return galleryItems
     .map(({ preview, original, description }) => {
       return `
-    <div class="gallery__item">
+    <div class"gallery__item">
     <a class="gallery__link" href="${original}">
     <img
       class="gallery__img"
@@ -36,5 +32,14 @@ gallery.insertAdjacentHTML("beforeend", galleryList);
  }
 
 
+const addGallary = createGalleryCardsItem (galleryItems);
 
+const galleryFoto = document.querySelector('.gallery');
+
+galleryFoto.insertAdjacentHTML('beforeend', addGallary);
+
+const box = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 200,
+});
 
