@@ -9,8 +9,6 @@ const TEXT_INPUT = 'feedback-form-state';
 const formInput = {};
 
 
-form.addEventListener('input', throttle(onInput, 500));
-
 form.addEventListener('submit', onSubmit);
 showSavedInput();
 
@@ -37,14 +35,11 @@ function showSavedInput() {
   if (save) {
     const textInsert = JSON.parse(save);
     console.log(textInsert);
-    textInsert.message
-      ? (text.value = textInsert.message)
-      : (text.value = '');
 
-    textInsert.email
-      ? (email.value = textInsert.email)
-      : (email.value = '');
+    textInsert.message ? (text.value = textInsert.message): (text.value = '');
+    textInsert.email ? (email.value = textInsert.email): (email.value = '');
 
 
   }
 }
+form.addEventListener('input', throttle(onInput, 500));
