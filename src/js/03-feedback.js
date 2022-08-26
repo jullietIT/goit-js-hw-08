@@ -6,20 +6,22 @@ const text = document.querySelector('[name=message]');
 
 
 const TEXT_INPUT = 'feedback-form-state';
-const formInput = {};
 
 
 form.addEventListener('submit', onSubmit);
+
 showSavedInput();
 
 function onInput(e) {
 
+  let formInput = localStorage.getItem(TEXT_INPUT);
+  formInput = formInput ? JSON.parse(formInput) : {};
   formInput[e.target.name] = e.target.value;
 
-  const saveText = JSON.stringify(formInput);
- 
-  localStorage.setItem(TEXT_INPUT, saveText);
+
+  localStorage.setItem(TEXT_INPUT, JSON.stringify(formInput));
 }
+
 
 function onSubmit(e) {
   const save = localStorage.getItem(TEXT_INPUT);
@@ -29,17 +31,27 @@ function onSubmit(e) {
   e.target.reset();
 }
 
+
 function showSavedInput() {
-  const save = localStorage.getItem(TEXT_INPUT);
+  let formInput = localStorage.getItem(TEXT_INPUT);
+  console.log('Function show', formInput);
 
-  if (save) {
-    const textInsert = JSON.parse(save);
-    console.log(textInsert);
+  if (formInput) {
+    formInput = JSON.parse(formInput);
 
-    textInsert.message ? (text.value = textInsert.message): (text.value = '');
-    textInsert.email ? (email.value = textInsert.email): (email.value = '');
 
+    Object.entries(formInput).forEach(([name, value]) => {
+   
+      formInput[name] = value;
+     
+    });
+
+    formInput.message ? (text.value = formInput.message) : '';
+    formInput.email ? (email.value = formInput.email) : '';
 
   }
 }
+
+
+
 form.addEventListener('input', throttle(onInput, 500));
