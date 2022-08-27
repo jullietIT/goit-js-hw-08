@@ -41,13 +41,13 @@ function showSavedInput() {
 
 
     Object.entries(formInput).forEach(([name, value]) => {
-   
-      formInput[name] = value;
+      
+      form.elements[name].value = value;
      
     });
 
-    formInput.message ? (text.value = formInput.message) : '';
-    formInput.email ? (email.value = formInput.email) : '';
+    // formInput.message ? (text.value = formInput.message) : '';
+    // formInput.email ? (email.value = formInput.email) : '';
 
   }
 }
